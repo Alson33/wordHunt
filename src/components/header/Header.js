@@ -3,16 +3,21 @@ import React from 'react'
 import './Header.css'
 import categories from '../../data/category'
 
-const Header = ({ setCategory, category, word, setWord }) => {
+const Header = ({ setCategory, category, word, setWord, darkMode }) => {
 
     const darkTheme = createTheme({
         palette: {
             primary: {
-                main: '#fff',
+                main: darkMode ? '#fff' : '#000',
             },
-            type: "dark",
+            type: darkMode ? "dark" : "light",
         }
     })
+
+    const handleChange = e => {
+        setCategory(e.target.value)
+        setWord('')
+    }
 
     return (
         <div className="header">
@@ -32,7 +37,7 @@ const Header = ({ setCategory, category, word, setWord }) => {
                         select
                         label="Language"
                         value={category}
-                        onChange={e => setCategory(e.target.value)}
+                        onChange={handleChange}
                         >
                             {
                                 categories.map(language => {
